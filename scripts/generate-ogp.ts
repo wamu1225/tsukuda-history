@@ -16,8 +16,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <rect x="0" y="0" width="1200" height="14" fill="#8a4a2f"/>
   <rect x="0" y="614" width="700" height="16" fill="#8a4a2f"/>
   <rect x="700" y="614" width="500" height="16" fill="#3b6ea5"/>
-  <text x="80" y="230" font-family="${FONT_SERIF}" font-size="66" font-weight="700" fill="#3b2f1f">佃 境界のまち</text>
-  <text x="80" y="300" font-family="${FONT_SANS}" font-size="28" fill="#6b6259">江戸の路地と超高層群を分ける一本の道</text>
+  <text x="80" y="230" font-family="${FONT_SERIF}" font-size="60" font-weight="700" fill="#3b2f1f">佃島の歴史と文化ガイド</text>
+  <text x="80" y="300" font-family="${FONT_SANS}" font-size="26" fill="#6b6259">地名の由来から住吉神社、老舗の佃煮、境界線まで</text>
   <line x1="80" y1="340" x2="620" y2="340" stroke="#8a4a2f" stroke-width="2"/>
   <text x="80" y="390" font-family="${FONT_SANS}" font-size="22" fill="#3b2f1f" font-weight="600">study-apps.com/tsukuda-history/</text>
   <text x="740" y="120" font-family="${FONT_SANS}" font-size="20" fill="#1a2530" letter-spacing="2">RIVER CITY 21</text>

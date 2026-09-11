@@ -1,4 +1,4 @@
-// scripts/prerender.ts：SSG。トップ（境界対比ビュー）、記事一覧、記事6本、about/privacyの
+// scripts/prerender.ts：SSG。トップ（分野別の入口）、記事一覧、記事6本、about/privacyの
 // 静的フォールバックHTML、per-page meta、JSON-LDを焼き込み、sitemap.xmlを生成する。
 // 境界地図SVGは src/lib/boundaryMapSvg.ts を唯一の生成元として呼び出す（React側と同じ関数＝ズレない）。
 // 実行: npx tsx scripts/prerender.ts（npm run predeploy 内）
@@ -7,13 +7,14 @@ import * as path from 'path';
 import { articles } from '../src/data/articles';
 import { contrastRows } from '../src/data/contrast';
 import { ABOUT_CONTENT, PRIVACY_CONTENT, SITE_NAME } from '../src/data/static-pages';
-import { renderBoundaryMapSvg, boundaryMapLegendItems } from '../src/lib/boundaryMapSvg';
+import { CATEGORY_LABEL, type Category } from '../src/data/types';
+import { renderBoundaryMapSvg } from '../src/lib/boundaryMapSvg';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
 const INDEX_HTML_PATH = path.join(DIST_DIR, 'index.html');
 const BASE = '/tsukuda-history';
 const BASE_URL = 'https://study-apps.com/tsukuda-history';
-const SITE_UPDATED_AT = '2026-09-10';
+const SITE_UPDATED_AT = '2026-09-11';
 
 console.log('--- tsukuda-history SSG Pre-rendering ---');
 if (!fs.existsSync(INDEX_HTML_PATH)) {
@@ -44,7 +45,7 @@ function mdToHtml(content: string): string {
 }
 
 function applyMeta(html: string, title: string, description: string, urlPath: string): string {
-  const fullTitle = urlPath === '/' ? '佃 境界のまち｜江戸の路地と超高層群を分ける一本の道' : `${title}｜${SITE_NAME}`;
+  const fullTitle = urlPath === '/' ? SITE_NAME : `${title}｜${SITE_NAME}`;
   const url = `${BASE_URL}${urlPath}`;
   return html
     .replace(/<title>.*?<\/title>/, `<title>${esc(fullTitle)}</title>`)
@@ -76,44 +77,27 @@ function wrap(depth: number, title: string, desc: string, urlPath: string, bodyH
   return html;
 }
 
-const ZONE_LABEL: Record<string, string> = { old: '元佃', new: 'リバーシティ21', boundary: '境界' };
+const CATEGORY_ORDER: Category[] = ['name-origin', 'history', 'shrine', 'food', 'industry', 'culture', 'spots', 'faq'];
 
-// ── トップ（境界対比ビュー） ──
+// ── トップ（分野別の入口＝亀戸型） ──
 const homeDesc =
-  '東京都中央区佃1丁目。江戸期の路地・住吉神社と、超高層タワー群リバーシティ21が数百メートルで隣り合う理由を、境界線の対比で読み解く。';
-const contrastRowsHtml = contrastRows
-  .map(
-    (r) =>
-      `<tr><th style="text-align:left;padding:8px;background:#e4dfd0;font-size:0.85rem">${esc(r.label)}</th><td style="padding:8px;background:#f7f1e0;border-left:3px solid #8a4a2f">${esc(r.old)}</td><td style="padding:8px;background:#e7edf4;border-left:3px solid #3b6ea5">${esc(r.next)}</td></tr>`,
-  )
-  .join('\n');
-const legendHtml = boundaryMapLegendItems()
-  .map((p) => `<span style="margin-right:14px">${esc(p.name)}</span>`)
-  .join('');
-const articleLinksHtml = (zone: string) =>
-  articles
-    .filter((a) => a.zone === zone)
+  '東京都中央区佃1丁目の歴史と文化を一次資料でまとめる。地名の由来、住吉神社、佃煮の老舗、リバーシティ21との境界線まで。';
+const groupedHtml = CATEGORY_ORDER.map((cat) => {
+  const list = articles.filter((a) => a.category === cat);
+  if (list.length === 0) return '';
+  const rows = list
     .map(
       (a) =>
         `<li><a href="${BASE}/articles/${a.slug}/" style="color:#8a4a2f"><strong>${esc(a.title)}</strong></a><br/><span style="color:#6b6259;font-size:0.88rem">${esc(a.dek)}</span></li>`,
     )
     .join('\n');
+  return `<h2 style="font-size:1.15rem;margin:24px 0 8px;color:#3b2f1f">${esc(CATEGORY_LABEL[cat])}</h2>\n<ul style="padding-left:18px">${rows}</ul>`;
+}).join('\n');
 const homeBody = `<article style="${shellStyle}">
   <p style="color:#6b6259;font-size:0.8rem">東京都中央区 佃1丁目</p>
-  <h1 style="${h1Style}">江戸の路地と、超高層群。隔てているのは、たった一本の道か。</h1>
+  <h1 style="${h1Style}">佃島の歴史と文化</h1>
   <p>${esc(homeDesc)}</p>
-  <h2 style="font-size:1.15rem;margin:24px 0 8px;color:#3b2f1f">元佃 ⇄ リバーシティ21</h2>
-  <table style="width:100%;border-collapse:collapse;border:1px solid #8a8578">${contrastRowsHtml}</table>
-  <h2 style="font-size:1.15rem;margin:24px 0 8px;color:#3b2f1f">実座標で見る位置関係</h2>
-  <p>老舗3軒のクラスタからスカイライトタワーまで実測 約180m、センチュリーパークタワーまで約300m。</p>
-  ${renderBoundaryMapSvg()}
-  <p style="font-size:0.85rem">${legendHtml}</p>
-  <h2 style="font-size:1.15rem;margin:24px 0 8px;color:#3b2f1f">記事を読む（元佃）</h2>
-  <ul style="padding-left:18px">${articleLinksHtml('old')}</ul>
-  <h2 style="font-size:1.15rem;margin:24px 0 8px;color:#3b2f1f">記事を読む（境界）</h2>
-  <ul style="padding-left:18px">${articleLinksHtml('boundary')}</ul>
-  <h2 style="font-size:1.15rem;margin:24px 0 8px;color:#3b2f1f">記事を読む（リバーシティ21）</h2>
-  <ul style="padding-left:18px">${articleLinksHtml('new')}</ul>
+  ${groupedHtml}
   ${footerNav}
 </article>`;
 writePage(
@@ -131,11 +115,11 @@ console.log('✓ トップページ');
 
 // ── 記事一覧 ──
 {
-  const desc = '佃1丁目の成立から住吉神社、老舗の佃煮店、リバーシティ21再開発、境界線の実測までをまとめた記事一覧です。';
+  const desc = '佃1丁目の地名の由来・成立史・住吉神社・老舗の佃煮・リバーシティ21再開発・境界線の実測をまとめた記事一覧です。';
   const rows = articles
     .map(
       (a) =>
-        `<li>[${ZONE_LABEL[a.zone]}] <a href="${BASE}/articles/${a.slug}/" style="color:#8a4a2f">${esc(a.title)}</a>：${esc(a.dek)}</li>`,
+        `<li>[${CATEGORY_LABEL[a.category]}] <a href="${BASE}/articles/${a.slug}/" style="color:#8a4a2f">${esc(a.title)}</a>：${esc(a.dek)}</li>`,
     )
     .join('\n');
   const body = `<article style="${shellStyle}">
@@ -157,7 +141,13 @@ console.log('✓ トップページ');
 }
 console.log('✓ /articles/');
 
-// ── 記事本体（6件） ──
+// ── 記事本体（6件・kyokaiのみ境界対比図を末尾に付加） ──
+const contrastTableHtml = contrastRows
+  .map(
+    (r) =>
+      `<tr><th style="text-align:left;padding:8px;background:#e4dfd0;font-size:0.85rem">${esc(r.label)}</th><td style="padding:8px;background:#f7f1e0;border-left:3px solid #8a4a2f">${esc(r.old)}</td><td style="padding:8px;background:#e7edf4;border-left:3px solid #3b6ea5">${esc(r.next)}</td></tr>`,
+  )
+  .join('\n');
 for (const a of articles) {
   const sectionsHtml = a.sections
     .map(
@@ -165,12 +155,19 @@ for (const a of articles) {
         `<h2 style="font-size:1.05rem;margin-top:24px">${esc(s.heading)}</h2>${s.paragraphs.map((p) => `<p>${esc(p)}</p>`).join('\n')}`,
     )
     .join('\n');
+  const figureHtml =
+    a.slug === 'kyokai'
+      ? `<h2 style="font-size:1.05rem;margin-top:24px">実座標で見る位置関係</h2>
+         <table style="width:100%;border-collapse:collapse;border:1px solid #8a8578">${contrastTableHtml}</table>
+         ${renderBoundaryMapSvg()}`
+      : '';
   const sourcesHtml = a.sources.map((s) => `<li>${esc(s)}</li>`).join('\n');
   const body = `<article style="${shellStyle}">
-    <p style="display:inline-block;font-size:0.74rem;padding:3px 10px;border-radius:12px;color:#fff;background:${a.zone === 'old' ? '#8a4a2f' : a.zone === 'new' ? '#3b6ea5' : '#8a8578'}">${ZONE_LABEL[a.zone]}</p>
+    <p style="display:inline-block;font-size:0.74rem;padding:3px 10px;border-radius:12px;color:#fff;background:#8a4a2f">${esc(CATEGORY_LABEL[a.category])}</p>
     <h1 style="${h1Style}">${esc(a.title)}</h1>
     <p style="color:#6b6259">${esc(a.dek)}</p>
     ${sectionsHtml}
+    ${figureHtml}
     <div style="margin-top:24px;padding:14px 16px;background:#fff;border:1px solid #8a8578;border-radius:6px">
       <strong>出典</strong>
       <ul style="margin:6px 0 0;padding-left:18px">${sourcesHtml}</ul>

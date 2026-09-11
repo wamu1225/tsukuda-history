@@ -5,7 +5,7 @@ export const articles: Article[] = [
     slug: 'seiritsu',
     title: '佃島の成立——摂津の漁民が埋め立てた人工島',
     dek: '徳川家康との伝承と、正保年間の埋め立てで生まれた「元佃」の範囲。',
-    zone: 'old',
+    category: 'history',
     updatedAt: '2026-09-10',
     sections: [
       {
@@ -33,7 +33,7 @@ export const articles: Article[] = [
     slug: 'sumiyoshi',
     title: '住吉神社——創建から続く海の信仰',
     dek: '正保3年の創建に、住吉三神・神功皇后・徳川家康の霊を同時に祀った経緯。',
-    zone: 'old',
+    category: 'shrine',
     updatedAt: '2026-09-10',
     sections: [
       {
@@ -66,7 +66,7 @@ export const articles: Article[] = [
     slug: 'tsukudani',
     title: '佃煮の老舗3軒——創業年をたどると見える誤りやすさ',
     dek: '田中屋・天安・丸久。3軒の創業年は、和暦の見た目ほど単純ではない。',
-    zone: 'old',
+    category: 'food',
     updatedAt: '2026-09-10',
     sections: [
       {
@@ -103,7 +103,7 @@ export const articles: Article[] = [
     slug: 'oohashi',
     title: '月島の誕生と佃大橋——地続きになるまで',
     dek: '明治の埋め立てで生まれた月島、そして1964年の橋が佃川を消した。',
-    zone: 'boundary',
+    category: 'history',
     updatedAt: '2026-09-10',
     sections: [
       {
@@ -136,7 +136,7 @@ export const articles: Article[] = [
     slug: 'rivercity',
     title: '石川島造船所からリバーシティ21へ',
     dek: '重工業の跡地9割超が、24年かけて超高層住宅街に変わった。',
-    zone: 'new',
+    category: 'industry',
     updatedAt: '2026-09-10',
     sections: [
       {
@@ -161,7 +161,7 @@ export const articles: Article[] = [
     slug: 'kyokai',
     title: '境界線を歩く——元佃とリバーシティ21はどれだけ近いか',
     dek: '「区道一本」の実際の幅と、老舗の並びから最初の超高層棟までの実測距離。',
-    zone: 'boundary',
+    category: 'spots',
     updatedAt: '2026-09-10',
     sections: [
       {

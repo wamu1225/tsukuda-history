@@ -5,10 +5,14 @@
   --line: #d9d5c9;
   --line-strong: #8a8578;
 
+  /* サイト全体のアクセント（柿渋色）＝佃煮・水辺の町を連想する単色 */
+  --accent: #8a4a2f;
+  --accent-paper: #f7f1e0;
+
+  /* 「境界線を歩く」記事内の対比図でのみ使う新旧2色（サイト全体の骨格には使わない） */
   --old-ink: #3b2f1f;
   --old-paper: #f7f1e0;
   --old-accent: #8a4a2f;
-
   --new-ink: #1a2530;
   --new-paper: #e7edf4;
   --new-accent: #3b6ea5;
@@ -26,7 +30,7 @@
 }
 
 .site-header {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 3px solid var(--accent);
   background: var(--paper);
 }
 
@@ -79,31 +83,10 @@
   text-decoration: none;
 }
 
-/* Hero — 対角線の分割は本サイトのシグネチャー（favicon/OGPと同じモチーフ） */
+/* Hero */
 .hero {
-  position: relative;
   padding: 48px 0 32px;
   border-bottom: 1px solid var(--line);
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -10%;
-  width: 55%;
-  height: 100%;
-  background: var(--new-paper);
-  clip-path: polygon(38% 0, 100% 0, 100% 100%, 8% 100%);
-  z-index: 0;
-}
-
-.hero__eyebrow,
-.hero__title,
-.hero__lead {
-  position: relative;
-  z-index: 1;
 }
 
 .hero__eyebrow {
@@ -115,9 +98,11 @@
 
 .hero__title {
   font-family: var(--serif);
-  font-size: clamp(1.5rem, 4.4vw, 2.3rem);
-  line-height: 1.55;
+  font-size: clamp(1.6rem, 4.8vw, 2.5rem);
+  line-height: 1.5;
   margin: 12px 0 18px;
+  border-left: 6px solid var(--accent);
+  padding-left: 16px;
 }
 
 .hero__lead {
@@ -141,11 +126,12 @@
   margin: 0 0 16px;
 }
 
-/* Contrast table */
+/* Contrast table（kyokai記事内でのみ使用） */
 .contrast-table {
   border: 1px solid var(--line-strong);
   overflow: hidden;
   border-radius: 2px;
+  margin: 16px 0;
 }
 
 .contrast-table__head,
@@ -211,9 +197,9 @@
   }
 }
 
-/* Map */
+/* Map（kyokai記事内でのみ使用） */
 .boundary-map {
-  margin: 0;
+  margin: 16px 0 0;
 }
 
 .boundary-map svg {
@@ -275,7 +261,7 @@
   margin: 6px 0 0;
 }
 
-/* Article groups (home) */
+/* Article groups（トップ・分野別） */
 .article-groups {
   margin-top: 8px;
 }
@@ -283,22 +269,8 @@
 .article-group {
   margin-bottom: 28px;
   padding: 18px 20px;
-  border-left: 4px solid var(--line-strong);
-}
-
-.article-group--old {
-  background: var(--old-paper);
-  border-left-color: var(--old-accent);
-}
-
-.article-group--new {
-  background: var(--new-paper);
-  border-left-color: var(--new-accent);
-}
-
-.article-group--boundary {
-  background: #f0ede4;
-  border-left-color: var(--line-strong);
+  background: var(--accent-paper);
+  border-left: 4px solid var(--accent);
 }
 
 .article-group__title {
@@ -350,18 +322,7 @@
   border-radius: 12px;
   margin: 28px 0 6px;
   color: #fff;
-}
-
-.article__zone--old {
-  background: var(--old-accent);
-}
-
-.article__zone--new {
-  background: var(--new-accent);
-}
-
-.article__zone--boundary {
-  background: var(--line-strong);
+  background: var(--accent);
 }
 
 .article__dek {
@@ -434,22 +395,8 @@
 
 .article-index__item {
   padding: 14px 18px;
-  border-left: 4px solid var(--line-strong);
-}
-
-.article-index__item--old {
-  border-left-color: var(--old-accent);
-  background: var(--old-paper);
-}
-
-.article-index__item--new {
-  border-left-color: var(--new-accent);
-  background: var(--new-paper);
-}
-
-.article-index__item--boundary {
-  border-left-color: var(--line-strong);
-  background: #f0ede4;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-paper);
 }
 
 .article-index__zone {
