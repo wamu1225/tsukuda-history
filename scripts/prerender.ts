@@ -1,4 +1,4 @@
-// scripts/prerender.ts：SSG。トップ（分野別の入口）、記事一覧、記事6本、about/privacyの
+// scripts/prerender.ts：SSG。トップ（分野別の入口）、記事一覧、記事本体、about/privacyの
 // 静的フォールバックHTML、per-page meta、JSON-LDを焼き込み、sitemap.xmlを生成する。
 // 境界地図SVGは src/lib/boundaryMapSvg.ts を唯一の生成元として呼び出す（React側と同じ関数＝ズレない）。
 // 実行: npx tsx scripts/prerender.ts（npm run predeploy 内）
@@ -141,7 +141,7 @@ console.log('✓ トップページ');
 }
 console.log('✓ /articles/');
 
-// ── 記事本体（6件・kyokaiのみ境界対比図を末尾に付加） ──
+// ── 記事本体（kyokaiのみ境界対比図を末尾に付加） ──
 const contrastTableHtml = contrastRows
   .map(
     (r) =>
