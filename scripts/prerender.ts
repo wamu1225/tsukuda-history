@@ -35,6 +35,13 @@ function templateForDepth(depth: number): string {
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+// 本文中の [text](/articles/slug/) をリンクに変換する（ArticlePage.tsx の renderParagraph と対の単一ソース）。
+const escParagraph = (s: string) =>
+  esc(s).replace(
+    /\[([^\]]+)\]\(\/articles\/([a-z0-9-]+)\/\)/g,
+    (_m, text: string, slug: string) => `<a href="${BASE}/articles/${slug}/" style="color:#3b6ea5">${text}</a>`,
+  );
+
 function mdToHtml(content: string): string {
   return content
     .split(/\n{2,}/)
@@ -152,7 +159,7 @@ for (const a of articles) {
   const sectionsHtml = a.sections
     .map(
       (s) =>
-        `<h2 style="font-size:1.05rem;margin-top:24px">${esc(s.heading)}</h2>${s.paragraphs.map((p) => `<p>${esc(p)}</p>`).join('\n')}`,
+        `<h2 style="font-size:1.05rem;margin-top:24px">${esc(s.heading)}</h2>${s.paragraphs.map((p) => `<p>${escParagraph(p)}</p>`).join('\n')}`,
     )
     .join('\n');
   const figureHtml =

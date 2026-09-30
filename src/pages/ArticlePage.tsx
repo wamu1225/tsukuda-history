@@ -1,8 +1,29 @@
+import type { ReactNode } from 'react';
 import { articles } from '../data/articles';
 import { CATEGORY_LABEL } from '../data/types';
 import { href } from '../lib/router';
 import BoundaryMap from '../components/BoundaryMap';
 import { contrastRows } from '../data/contrast';
+
+// 本文中の [text](/articles/slug/) をリンクに変換する（他記事とつなぐための最小限のインライン記法）。
+function renderParagraph(text: string): ReactNode[] {
+  const re = /\[([^\]]+)\]\((\/articles\/[a-z0-9-]+\/)\)/g;
+  const nodes: ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let key = 0;
+  while ((m = re.exec(text))) {
+    if (m.index > last) nodes.push(text.slice(last, m.index));
+    nodes.push(
+      <a key={key++} href={href(m[2])}>
+        {m[1]}
+      </a>,
+    );
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
 
 export default function ArticlePage({ id }: { id: string }) {
   const article = articles.find((a) => a.slug === id);
@@ -26,7 +47,7 @@ export default function ArticlePage({ id }: { id: string }) {
         <section key={s.heading} className="article__section">
           <h2>{s.heading}</h2>
           {s.paragraphs.map((p, i) => (
-            <p key={i}>{p}</p>
+            <p key={i}>{renderParagraph(p)}</p>
           ))}
         </section>
       ))}
