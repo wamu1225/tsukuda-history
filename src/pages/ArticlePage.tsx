@@ -43,11 +43,23 @@ export default function ArticlePage({ id }: { id: string }) {
       <p className={`article__zone article__zone--${article.category}`}>{CATEGORY_LABEL[article.category]}</p>
       <h1 className="content-h1">{article.title}</h1>
       <p className="article__dek">{article.dek}</p>
-      {article.sections.map((s) => (
-        <section key={s.heading} className="article__section">
+      {article.sections.length >= 2 && (
+        <nav className="article__toc" aria-label="目次">
+          <p className="article__toc-label">目次</p>
+          <ol>
+            {article.sections.map((s, i) => (
+              <li key={s.heading}>
+                <a href={`#sec-${i}`}>{s.heading}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      {article.sections.map((s, i) => (
+        <section key={s.heading} id={`sec-${i}`} className="article__section">
           <h2>{s.heading}</h2>
-          {s.paragraphs.map((p, i) => (
-            <p key={i}>{renderParagraph(p)}</p>
+          {s.paragraphs.map((p, i2) => (
+            <p key={i2}>{renderParagraph(p)}</p>
           ))}
         </section>
       ))}
