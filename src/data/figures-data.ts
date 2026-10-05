@@ -13,8 +13,8 @@ function buildTowerChartSvg(): string {
     { name: 'センチュリーパークタワー', year: '1999年', floors: 54, units: '756戸', color: '#3b6ea5' },
   ];
   const maxFloors = 54;
-  const barMaxW = 170;
-  const rowH = 46;
+  const barMaxW = 110;
+  const rowH = 52;
   const rows = towers
     .map((t, i) => {
       const y = 10 + i * rowH;
@@ -23,12 +23,12 @@ function buildTowerChartSvg(): string {
         `<text x="0" y="${y + 12}" font-size="11.5" font-weight="700" fill="#262524">${t.name}</text>` +
         `<rect x="0" y="${y + 18}" width="${barMaxW}" height="14" fill="#eef0ec" stroke="#d9d5c9"/>` +
         `<rect x="0" y="${y + 18}" width="${w.toFixed(1)}" height="14" fill="${t.color}"/>` +
-        `<text x="${barMaxW + 8}" y="${y + 29}" font-size="11.5" fill="#262524">${t.floors}階・${t.units}（${t.year}）</text>`
+        `<text x="0" y="${y + 44}" font-size="11.5" fill="#262524">${t.floors}階・${t.units}（${t.year}）</text>`
       );
     })
     .join('');
   return `<figure class="fig">
-  <svg viewBox="0 0 300 150" width="100%" role="img" aria-labelledby="tower-title tower-desc">
+  <svg viewBox="0 0 300 180" width="100%" role="img" aria-labelledby="tower-title tower-desc">
     <title id="tower-title">リバーシティ21・3タワーの階数と戸数の比較図</title>
     <desc id="tower-desc">シティフロントタワー31階290戸（1991年）、スカイライトタワー40階336戸（1993年）、センチュリーパークタワー54階756戸（1999年）を、階数に比例した横棒で比較する図。</desc>
     <g transform="translate(15,5)">${rows}</g>
