@@ -4,6 +4,7 @@ import { CATEGORY_LABEL } from '../data/types';
 import { href } from '../lib/router';
 import BoundaryMap from '../components/BoundaryMap';
 import { contrastRows } from '../data/contrast';
+import { figureHtml } from '../data/figures-data';
 
 // 本文中の [text](/articles/slug/) をリンクに変換する（他記事とつなぐための最小限のインライン記法）。
 function renderParagraph(text: string): ReactNode[] {
@@ -63,6 +64,7 @@ export default function ArticlePage({ id }: { id: string }) {
           ))}
         </section>
       ))}
+      {figureHtml(article.slug) && <div dangerouslySetInnerHTML={{ __html: figureHtml(article.slug)! }} />}
       {article.slug === 'kyokai' && (
         <section className="article__section article__figure">
           <h2>実座標で見る位置関係</h2>

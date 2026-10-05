@@ -9,6 +9,7 @@ import { contrastRows } from '../src/data/contrast';
 import { ABOUT_CONTENT, PRIVACY_CONTENT, SITE_NAME } from '../src/data/static-pages';
 import { CATEGORY_LABEL, type Category } from '../src/data/types';
 import { renderBoundaryMapSvg } from '../src/lib/boundaryMapSvg';
+import { figureHtml } from '../src/data/figures-data';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
 const INDEX_HTML_PATH = path.join(DIST_DIR, 'index.html');
@@ -168,12 +169,13 @@ for (const a of articles) {
       <ol style="margin:0;padding-left:18px">${a.sections.map((s, i) => `<li><a href="#sec-${i}" style="color:#8a4a2f">${esc(s.heading)}</a></li>`).join('')}</ol>
     </nav>`
     : '';
-  const figureHtml =
+  const kyokaiFigureHtml =
     a.slug === 'kyokai'
       ? `<h2 style="font-size:1.05rem;margin-top:24px">実座標で見る位置関係</h2>
          <table style="width:100%;border-collapse:collapse;border:1px solid #8a8578">${contrastTableHtml}</table>
          ${renderBoundaryMapSvg()}`
       : '';
+  const figHtml = figureHtml(a.slug) ?? '';
   const sourcesHtml = a.sources.map((s) => `<li>${esc(s)}</li>`).join('\n');
   const body = `<article style="${shellStyle}">
     <p style="display:inline-block;font-size:0.74rem;padding:3px 10px;border-radius:12px;color:#fff;background:#8a4a2f">${esc(CATEGORY_LABEL[a.category])}</p>
@@ -181,7 +183,8 @@ for (const a of articles) {
     <p style="color:#6b6259">${esc(a.dek)}</p>
     ${tocHtml}
     ${sectionsHtml}
-    ${figureHtml}
+    ${figHtml}
+    ${kyokaiFigureHtml}
     <div style="margin-top:24px;padding:14px 16px;background:#fff;border:1px solid #8a8578;border-radius:6px">
       <strong>出典</strong>
       <ul style="margin:6px 0 0;padding-left:18px">${sourcesHtml}</ul>
