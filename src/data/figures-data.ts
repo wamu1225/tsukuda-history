@@ -59,9 +59,78 @@ function buildTsukudaniTimelineSvg(): string {
 </figure>`;
 }
 
+// 住吉神社の年表（4点）
+function buildSumiyoshiTimelineSvg(): string {
+  const node = (x: number, year: string, label: string, color: string) =>
+    `<circle cx="${x}" cy="54" r="9" fill="${color}"/>` +
+    `<text x="${x}" y="34" font-size="11" font-weight="700" fill="#262524" text-anchor="middle">${year}</text>` +
+    `<text x="${x}" y="80" font-size="10.5" fill="#262524" text-anchor="middle">${label.split('|')[0]}</text>` +
+    (label.includes('|') ? `<text x="${x}" y="92" font-size="10.5" fill="#262524" text-anchor="middle">${label.split('|')[1]}</text>` : '');
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 110" width="100%" role="img" aria-labelledby="sumiyoshi-title sumiyoshi-desc">
+    <title id="sumiyoshi-title">住吉神社の年表の図</title>
+    <desc id="sumiyoshi-desc">正保3年の創建から、宮神輿の制作、陶製扁額の奉納、海中渡御の終了までの年表。</desc>
+    <rect width="300" height="110" fill="#eef0ec"/>
+    <line x1="34" y1="54" x2="266" y2="54" stroke="#8a8578" stroke-width="2.2"/>
+    <path d="M266 54 l-8 -4 M266 54 l-8 4" stroke="#8a8578" stroke-width="2.2" fill="none"/>
+    ${node(40, '1646', '創建|（正保3年）', '#8a4a2f')}
+    ${node(125, '1838', '八角形の|宮神輿を制作', '#6b6259')}
+    ${node(200, '1882', '陶製扁額を|奉納', '#8a4a2f')}
+    ${node(260, '1962', '海中渡御を|最後に台船へ', '#262524')}
+  </svg>
+  <figcaption>住吉神社は正保3年（1646年）6月29日の創建以来、天保9年（1838年）作の八角形の宮神輿、明治15年（1882年）奉納の陶製扁額など、江戸・明治の信仰の記録を今に伝えています。昭和37年（1962年）までは担ぎ手が隅田川へ入る「海中渡御」でしたが、以降は台船による船渡御に変わりました。</figcaption>
+</figure>`;
+}
+
+// 月島の埋立から、もんじゃ振興会の発展までの年表（4点）
+function buildTsukishimaTimelineSvg(): string {
+  const node = (x: number, year: string, label: string, color: string) =>
+    `<circle cx="${x}" cy="54" r="9" fill="${color}"/>` +
+    `<text x="${x}" y="34" font-size="11" font-weight="700" fill="#262524" text-anchor="middle">${year}</text>` +
+    `<text x="${x}" y="80" font-size="10.5" fill="#262524" text-anchor="middle">${label.split('|')[0]}</text>` +
+    (label.includes('|') ? `<text x="${x}" y="92" font-size="10.5" fill="#262524" text-anchor="middle">${label.split('|')[1]}</text>` : '');
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 110" width="100%" role="img" aria-labelledby="tsukishima-title tsukishima-desc">
+    <title id="tsukishima-title">月島の埋立からもんじゃ振興会の発展までの年表の図</title>
+    <desc id="tsukishima-desc">月島一号地の完成から、戦後のもんじゃ焼き文化の広がり、振興会協同組合化までの年表。</desc>
+    <rect width="300" height="110" fill="#eef0ec"/>
+    <line x1="34" y1="54" x2="266" y2="54" stroke="#8a8578" stroke-width="2.2"/>
+    <path d="M266 54 l-8 -4 M266 54 l-8 4" stroke="#8a8578" stroke-width="2.2" fill="none"/>
+    ${node(40, '1892', '月島一号地|完成', '#3b6ea5')}
+    ${node(125, '1954', '好美家|創業', '#8a4a2f')}
+    ${node(200, '1997', 'もんじゃ振興会|発足（28店）', '#6b6259')}
+    ${node(260, '2019', '加盟|54店舗', '#262524')}
+  </svg>
+  <figcaption>月島一号地は明治25年（1892年）に完成し、大正9年（1920年）ごろには人口約3万人・工場214か所に成長しました。もんじゃ焼きは昭和20年代の駄菓子屋文化から育ち、平成9年（1997年）に28店でもんじゃ振興会が発足、令和元年（2019年）には加盟54店舗にまで広がっています。</figcaption>
+</figure>`;
+}
+
+// 佃川の3つの結末（大橋・渡し・堀）の対比図
+function buildOohashiContrastSvg(): string {
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 190" width="100%" role="img" aria-labelledby="oohashi-title oohashi-desc">
+    <title id="oohashi-title">佃川の3つの結末（大橋・渡し・堀）を示す図</title>
+    <desc id="oohashi-desc">1本の水路だった佃川が、佃大橋への埋立・佃の渡しの廃止・佃堀としての現存という3つの異なる結末をたどったことを示す対比図。</desc>
+    <rect x="10" y="10" width="280" height="50" fill="#e7edf4" opacity="0.7"/>
+    <text x="20" y="30" font-size="12" font-weight="700" fill="#262524">佃大橋（1964年）</text>
+    <text x="20" y="48" font-size="11" fill="#6b6259">佃川の大部分を埋め立てて架橋</text>
+    <rect x="10" y="68" width="280" height="50" fill="#f7f1e0" opacity="0.8"/>
+    <text x="20" y="88" font-size="12" font-weight="700" fill="#262524">佃の渡し（1964年廃止）</text>
+    <text x="20" y="106" font-size="11" fill="#6b6259">正保2年から300年余り続いた渡し船が終了</text>
+    <rect x="10" y="126" width="280" height="50" fill="#e7f0e9" opacity="0.8"/>
+    <text x="20" y="146" font-size="12" font-weight="700" fill="#262524">佃堀（今も現存）</text>
+    <text x="20" y="164" font-size="11" fill="#6b6259">西側の一部は水路として残り、住吉水門で高潮対策</text>
+  </svg>
+  <figcaption>同じ「佃川」という1本の水路が、佃大橋への埋立、佃の渡しの廃止、佃堀としての現存という3つの異なる結末をたどりました。橋の完成と渡しの廃止は同じ昭和39年（1964年）8月27日に重なっています。</figcaption>
+</figure>`;
+}
+
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   tsukudani: { html: buildTsukudaniTimelineSvg() },
+  sumiyoshi: { html: buildSumiyoshiTimelineSvg() },
+  tsukishima: { html: buildTsukishimaTimelineSvg() },
+  oohashi: { html: buildOohashiContrastSvg() },
 };
 
 export function figureHtml(slug: string): string | null {
