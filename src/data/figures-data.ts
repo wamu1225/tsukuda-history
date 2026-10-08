@@ -125,12 +125,35 @@ function buildOohashiContrastSvg(): string {
 </figure>`;
 }
 
+// 佃島の成立の年表（3点）
+function buildSeiritsuTimelineSvg(): string {
+  const node = (x: number, year: string, label: string, color: string) =>
+    `<circle cx="${x}" cy="54" r="9" fill="${color}"/>` +
+    `<text x="${x}" y="34" font-size="11" font-weight="700" fill="#262524" text-anchor="middle">${year}</text>` +
+    `<text x="${x}" y="80" font-size="10.5" fill="#262524" text-anchor="middle">${label.split('|')[0]}</text>` +
+    (label.includes('|') ? `<text x="${x}" y="92" font-size="10.5" fill="#262524" text-anchor="middle">${label.split('|')[1]}</text>` : '');
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 110" width="100%" role="img" aria-labelledby="seiritsu-title seiritsu-desc">
+    <title id="seiritsu-title">佃島の成立の年表の図</title>
+    <desc id="seiritsu-desc">家康との結びつきを伝える2つの移住伝承と、正保年間の埋め立て完成までの年表。</desc>
+    <rect width="300" height="110" fill="#eef0ec"/>
+    <line x1="34" y1="54" x2="266" y2="54" stroke="#8a8578" stroke-width="2.2"/>
+    <path d="M266 54 l-8 -4 M266 54 l-8 4" stroke="#8a8578" stroke-width="2.2" fill="none"/>
+    ${node(40, '1590説', '天正18年|家康に同行', '#8a4a2f')}
+    ${node(125, '1630説', '寛永7年|一部が移住', '#8a4a2f')}
+    ${node(230, '1644〜45', '埋め立てが|完成（正保元〜2年）', '#262524')}
+  </svg>
+  <figcaption>佃村の漁民がいつ江戸へ移り住んだかは資料によって年代が揺れ、天正18年（1590年）説と寛永7年（1630年）説があります。一致して語られるのは、隅田川河口の干潟を埋め立てて島を完成させた正保元〜2年（1644〜45年）です。</figcaption>
+</figure>`;
+}
+
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   tsukudani: { html: buildTsukudaniTimelineSvg() },
   sumiyoshi: { html: buildSumiyoshiTimelineSvg() },
   tsukishima: { html: buildTsukishimaTimelineSvg() },
   oohashi: { html: buildOohashiContrastSvg() },
+  seiritsu: { html: buildSeiritsuTimelineSvg() },
 };
 
 export function figureHtml(slug: string): string | null {
