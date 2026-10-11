@@ -147,6 +147,52 @@ function buildSeiritsuTimelineSvg(): string {
 </figure>`;
 }
 
+// 佃1〜3丁目の町域が合わさった経緯（合流図）
+function buildTownMergeSvg(): string {
+  const box = (x: number, a: string, b: string, c: string, color: string) =>
+    `<rect x="${x}" y="12" width="88" height="62" rx="3" fill="none" stroke="${color}" stroke-width="2"/>` +
+    `<text x="${x + 44}" y="31" font-size="12" font-weight="700" fill="#262524" text-anchor="middle">${a}</text>` +
+    `<text x="${x + 44}" y="48" font-size="11.5" fill="#262524" text-anchor="middle">${b}</text>` +
+    `<text x="${x + 44}" y="63" font-size="11.5" fill="#262524" text-anchor="middle">${c}</text>`;
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 190" width="100%" role="img" aria-labelledby="town-title town-desc">
+    <title id="town-title">佃1〜3丁目の町域が合わさった図</title>
+    <desc id="town-desc">江戸初期からの佃島と、明治期の埋め立てでできた新佃西町、新佃東町が、明治29年に合わさって現在の佃1〜3丁目になったことを示す図。</desc>
+    <rect width="300" height="190" fill="#eef0ec"/>
+    ${box(8, '佃島', '江戸初期の埋立地', '1丁目・2丁目北', '#8a4a2f')}
+    ${box(106, '新佃西町', '明治期の埋立地', '2丁目南側', '#3b6ea5')}
+    ${box(204, '新佃東町', '明治期の埋立地', '3丁目', '#3b6ea5')}
+    <path d="M52 78 L132 120 M150 78 V120 M248 78 L168 120" stroke="#8a8578" stroke-width="2" fill="none"/>
+    <rect x="70" y="122" width="160" height="56" rx="3" fill="#262524" opacity="0.08" stroke="#262524" stroke-width="2"/>
+    <text x="150" y="146" font-size="13" font-weight="700" fill="#262524" text-anchor="middle">佃1〜3丁目</text>
+    <text x="150" y="166" font-size="11.5" fill="#262524" text-anchor="middle">1896年（明治29年）に一つの町名へ</text>
+  </svg>
+  <figcaption>元佃は佃1丁目1〜3番あたりを指すのに対し、行政区画としての佃は江戸初期と明治期、二つの時代の埋立地を含んでいます。</figcaption>
+</figure>`;
+}
+
+// 佃島の盆踊りの配置（模式図）
+function buildBonOdoriSvg(): string {
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 220" width="100%" role="img" aria-labelledby="bon-title bon-desc">
+    <title id="bon-title">佃島の盆踊りの配置の模式図</title>
+    <desc id="bon-desc">広場の中心の櫓で音頭取りが太鼓に合わせて口説を唄い、その周りを参加者が輪になって踊り、櫓の正面に無縁仏のための精霊棚が置かれる様子を示す模式図。</desc>
+    <rect width="300" height="220" fill="#eef0ec"/>
+    <circle cx="150" cy="98" r="70" fill="none" stroke="#8a4a2f" stroke-width="2" stroke-dasharray="3 6"/>
+    <circle cx="150" cy="28" r="5" fill="#8a4a2f"/><circle cx="200" cy="48" r="5" fill="#8a4a2f"/><circle cx="220" cy="98" r="5" fill="#8a4a2f"/>
+    <circle cx="200" cy="148" r="5" fill="#8a4a2f"/><circle cx="100" cy="148" r="5" fill="#8a4a2f"/><circle cx="80" cy="98" r="5" fill="#8a4a2f"/><circle cx="100" cy="48" r="5" fill="#8a4a2f"/>
+    <rect x="128" y="76" width="44" height="44" fill="#262524" opacity="0.15" stroke="#262524" stroke-width="2"/>
+    <text x="150" y="95" font-size="12" font-weight="700" fill="#262524" text-anchor="middle">櫓</text>
+    <text x="150" y="111" font-size="11" fill="#262524" text-anchor="middle">音頭取り</text>
+    <rect x="124" y="124" width="52" height="16" fill="#3b6ea5" opacity="0.8"/>
+    <text x="182" y="137" font-size="11.5" fill="#3b6ea5">← 精霊棚（正面）</text>
+    <text x="150" y="190" font-size="11.5" fill="#262524" text-anchor="middle">輪になって行きつ戻りつ踊る</text>
+    <text x="150" y="208" font-size="11.5" fill="#262524" text-anchor="middle">太鼓と七七調の口説のみ（三味線・笛なし）</text>
+  </svg>
+  <figcaption>広場の中心に櫓を組み、その正面に無縁仏を供養する精霊棚を設けます。音頭取りの太鼓と唄だけで、参加者が周りを輪になって踊ります。</figcaption>
+</figure>`;
+}
+
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   tsukudani: { html: buildTsukudaniTimelineSvg() },
@@ -154,6 +200,8 @@ const figures: Record<string, Figure> = {
   tsukishima: { html: buildTsukishimaTimelineSvg() },
   oohashi: { html: buildOohashiContrastSvg() },
   seiritsu: { html: buildSeiritsuTimelineSvg() },
+  chimei: { html: buildTownMergeSvg() },
+  'bon-odori': { html: buildBonOdoriSvg() },
 };
 
 export function figureHtml(slug: string): string | null {
