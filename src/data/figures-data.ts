@@ -74,11 +74,11 @@ function buildSumiyoshiTimelineSvg(): string {
     <line x1="34" y1="54" x2="266" y2="54" stroke="#8a8578" stroke-width="2.2"/>
     <path d="M266 54 l-8 -4 M266 54 l-8 4" stroke="#8a8578" stroke-width="2.2" fill="none"/>
     ${node(40, '1646', '創建|（正保3年）', '#8a4a2f')}
-    ${node(125, '1838', '八角形の|宮神輿を制作', '#6b6259')}
+    ${node(125, '天保年間', '八角形の|宮神輿を制作', '#6b6259')}
     ${node(200, '1882', '陶製扁額を|奉納', '#8a4a2f')}
     ${node(260, '1962', '海中渡御を|最後に台船へ', '#262524')}
   </svg>
-  <figcaption>住吉神社は正保3年（1646年）6月29日の創建以来、天保9年（1838年）作の八角形の宮神輿、明治15年（1882年）奉納の陶製扁額など、江戸・明治の信仰の記録を今に伝えています。昭和37年（1962年）までは担ぎ手が隅田川へ入る「海中渡御」でしたが、以降は台船による船渡御に変わりました。</figcaption>
+  <figcaption>住吉神社は正保3年（1646年）6月29日の創建以来、天保年間（1830〜1844年）作とされる八角形の宮神輿、明治15年（1882年）奉納の陶製扁額など、江戸・明治の信仰の記録を今に伝えています。昭和37年（1962年）までは担ぎ手が隅田川へ入る「海中渡御」でしたが、以降は台船による船渡御に変わりました。</figcaption>
 </figure>`;
 }
 
@@ -157,17 +157,17 @@ function buildTownMergeSvg(): string {
   return `<figure class="fig">
   <svg viewBox="0 0 300 190" width="100%" role="img" aria-labelledby="town-title town-desc">
     <title id="town-title">佃1〜3丁目の町域が合わさった図</title>
-    <desc id="town-desc">江戸初期からの佃島と、明治期の埋め立てでできた新佃西町、新佃東町が、明治29年に合わさって現在の佃1〜3丁目になったことを示す図。</desc>
+    <desc id="town-desc">江戸初期からの佃島と、明治期の埋め立てでできた新佃島西町、新佃島東町が、昭和の住居表示で現在の佃1〜3丁目になったことを示す図。</desc>
     <rect width="300" height="190" fill="#eef0ec"/>
-    ${box(8, '佃島', '江戸初期の埋立地', '1丁目・2丁目北', '#8a4a2f')}
-    ${box(106, '新佃西町', '明治期の埋立地', '2丁目南側', '#3b6ea5')}
-    ${box(204, '新佃東町', '明治期の埋立地', '3丁目', '#3b6ea5')}
+    ${box(8, '佃島', '江戸初期の埋立地', '1丁目が中心', '#8a4a2f')}
+    ${box(106, '新佃島西町', '明治期の埋立地', '2丁目', '#3b6ea5')}
+    ${box(204, '新佃島東町', '明治期の埋立地', '3丁目', '#3b6ea5')}
     <path d="M52 78 L132 120 M150 78 V120 M248 78 L168 120" stroke="#8a8578" stroke-width="2" fill="none"/>
     <rect x="70" y="122" width="160" height="56" rx="3" fill="#262524" opacity="0.08" stroke="#262524" stroke-width="2"/>
     <text x="150" y="146" font-size="13" font-weight="700" fill="#262524" text-anchor="middle">佃1〜3丁目</text>
-    <text x="150" y="166" font-size="11.5" fill="#262524" text-anchor="middle">1896年（明治29年）に一つの町名へ</text>
+    <text x="150" y="166" font-size="11.5" fill="#262524" text-anchor="middle">昭和の住居表示で一つの町名へ</text>
   </svg>
-  <figcaption>元佃は佃1丁目1〜3番あたりを指すのに対し、行政区画としての佃は江戸初期と明治期、二つの時代の埋立地を含んでいます。</figcaption>
+  <figcaption>元佃は最初の埋立地の古い町並みを指すのに対し、行政区画としての佃は江戸初期と明治期、二つの時代の埋立地を含んでいます。</figcaption>
 </figure>`;
 }
 
