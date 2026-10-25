@@ -135,15 +135,14 @@ function buildSeiritsuTimelineSvg(): string {
   return `<figure class="fig">
   <svg viewBox="0 0 300 110" width="100%" role="img" aria-labelledby="seiritsu-title seiritsu-desc">
     <title id="seiritsu-title">佃島の成立の年表の図</title>
-    <desc id="seiritsu-desc">家康との結びつきを伝える2つの移住伝承と、正保年間の埋め立て完成までの年表。</desc>
+    <desc id="seiritsu-desc">漁民の江戸入りを慶長17年とする説と、正保元年の埋め立てを並べた年表。</desc>
     <rect width="300" height="110" fill="#eef0ec"/>
     <line x1="34" y1="54" x2="266" y2="54" stroke="#8a8578" stroke-width="2.2"/>
     <path d="M266 54 l-8 -4 M266 54 l-8 4" stroke="#8a8578" stroke-width="2.2" fill="none"/>
-    ${node(40, '1590説', '天正18年|家康に同行', '#8a4a2f')}
-    ${node(125, '1630説', '寛永7年|一部が移住', '#8a4a2f')}
-    ${node(230, '1644〜45', '埋め立てが|完成（正保元〜2年）', '#262524')}
+    ${node(70, '1612説', '森孫右衛門ら|34名が江戸入り', '#8a4a2f')}
+    ${node(220, '1644', '干潟を埋め立て|島を築く（正保元年）', '#262524')}
   </svg>
-  <figcaption>佃村の漁民がいつ江戸へ移り住んだかは資料によって年代が揺れ、天正18年（1590年）説と寛永7年（1630年）説があります。一致して語られるのは、隅田川河口の干潟を埋め立てて島を完成させた正保元〜2年（1644〜45年）です。</figcaption>
+  <figcaption>佃村の漁民がいつ江戸へ移り住んだかは資料によって揺れ、慶長17年（1612年）に森孫右衛門ら34名が江戸に入ったとする資料もあります。島を築いたのは正保元年（1644年）です。</figcaption>
 </figure>`;
 }
 
