@@ -106,7 +106,7 @@ ${te.map(t=>({...t,pos:ne(t.lat,t.lng,{...e,width:w,height:ie,padding:ae})})).ma
     <text x="20" y="146" font-size="12" font-weight="700" fill="#262524">佃堀（今も現存）</text>
     <text x="20" y="164" font-size="11" fill="#6b6259">西側の一部は水路として残り、住吉水門で高潮対策</text>
   </svg>
-  <figcaption>同じ「佃川」という1本の水路が、佃大橋への埋立、佃の渡しの廃止、佃堀としての現存という3つの異なる結末をたどりました。橋の完成と渡しの廃止は同じ昭和39年（1964年）8月27日に重なっています。</figcaption>
+  <figcaption>同じ「佃川」という1本の水路が、佃大橋への埋立、佃の渡しの廃止、佃堀としての現存という3つの異なる結末をたどりました。橋の完成と渡しの廃止は同じ昭和39年（1964年）に重なっています。</figcaption>
 </figure>`}function me(){let e=(e,t,n,r)=>`<circle cx="${e}" cy="54" r="9" fill="${r}"/><text x="${e}" y="34" font-size="11" font-weight="700" fill="#262524" text-anchor="middle">${t}</text><text x="${e}" y="80" font-size="10.5" fill="#262524" text-anchor="middle">${n.split(`|`)[0]}</text>`+(n.includes(`|`)?`<text x="${e}" y="92" font-size="10.5" fill="#262524" text-anchor="middle">${n.split(`|`)[1]}</text>`:``);return`<figure class="fig">
   <svg viewBox="0 0 300 110" width="100%" role="img" aria-labelledby="seiritsu-title seiritsu-desc">
     <title id="seiritsu-title">佃島の成立の年表の図</title>
