@@ -8,7 +8,7 @@ export type Figure = { html: string };
 // リバーシティ21・3タワーの規模比較（階数バーチャート）
 function buildTowerChartSvg(): string {
   const towers = [
-    { name: 'シティフロントタワー', year: '1991年', floors: 31, units: '290戸', color: '#8fb0cf' },
+    { name: 'シティフロントタワー', year: '1990年代初', floors: 31, units: '290戸', color: '#8fb0cf' },
     { name: 'スカイライトタワー', year: '1993年', floors: 40, units: '336戸', color: '#5f8fb8' },
     { name: 'センチュリーパークタワー', year: '1999年', floors: 54, units: '756戸', color: '#3b6ea5' },
   ];
@@ -30,10 +30,10 @@ function buildTowerChartSvg(): string {
   return `<figure class="fig">
   <svg viewBox="0 0 300 180" width="100%" role="img" aria-labelledby="tower-title tower-desc">
     <title id="tower-title">リバーシティ21・3タワーの階数と戸数の比較図</title>
-    <desc id="tower-desc">シティフロントタワー31階290戸（1991年）、スカイライトタワー40階336戸（1993年）、センチュリーパークタワー54階756戸（1999年）を、階数に比例した横棒で比較する図。</desc>
+    <desc id="tower-desc">シティフロントタワー31階290戸（1990年代初頭）、スカイライトタワー40階336戸（1993年）、センチュリーパークタワー54階756戸（1999年）を、階数に比例した横棒で比較する図。</desc>
     <g transform="translate(15,5)">${rows}</g>
   </svg>
-  <figcaption>3つの超高層棟は、規模も竣工年もそれぞれ異なります。最も早く建ったシティフロントタワー（平成3年/1991年）から、もっとも新しく最も高いセンチュリーパークタワー（平成11年/1999年）まで、8年間で階数・戸数とも段階的に増えていきました。</figcaption>
+  <figcaption>3つの超高層棟は、規模も竣工年もそれぞれ異なります。最も早く建ったシティフロントタワー（1990年代初頭）から、もっとも新しく最も高いセンチュリーパークタワー（1999年）まで、階数・戸数とも段階的に増えていきました。</figcaption>
 </figure>`;
 }
 
