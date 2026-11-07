@@ -9,7 +9,7 @@ import { contrastRows } from '../src/data/contrast';
 import { ABOUT_CONTENT, PRIVACY_CONTENT, SITE_NAME } from '../src/data/static-pages';
 import { CATEGORY_LABEL, type Category } from '../src/data/types';
 import { renderBoundaryMapSvg } from '../src/lib/boundaryMapSvg';
-import { figureHtml } from '../src/data/figures-data';
+import { figureHtml, sectionFigureHtml } from '../src/data/figures-data';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
 const INDEX_HTML_PATH = path.join(DIST_DIR, 'index.html');
@@ -160,7 +160,7 @@ for (const a of articles) {
   const sectionsHtml = a.sections
     .map(
       (s, i) =>
-        `<h2 id="sec-${i}" style="font-size:1.05rem;margin-top:24px">${esc(s.heading)}</h2>${s.paragraphs.map((p) => `<p>${escParagraph(p)}</p>`).join('\n')}`,
+        `<h2 id="sec-${i}" style="font-size:1.05rem;margin-top:24px">${esc(s.heading)}</h2>${s.paragraphs.map((p) => `<p>${escParagraph(p)}</p>`).join('\n')}${sectionFigureHtml(a.slug, i) ?? ''}`,
     )
     .join('\n');
   const tocHtml = a.sections.length >= 2

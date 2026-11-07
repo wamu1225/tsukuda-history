@@ -33,7 +33,7 @@ function buildTowerChartSvg(): string {
     <desc id="tower-desc">シティフロントタワー31階290戸（1990年代初頭）、スカイライトタワー40階336戸（1993年）、センチュリーパークタワー54階756戸（1999年）を、階数に比例した横棒で比較する図。</desc>
     <g transform="translate(15,5)">${rows}</g>
   </svg>
-  <figcaption>3つの超高層棟は、規模も竣工年もそれぞれ異なります。最も早く建ったシティフロントタワー（1990年代初頭）から、もっとも新しく最も高いセンチュリーパークタワー（1999年）まで、階数・戸数とも段階的に増えていきました。</figcaption>
+  <figcaption>棒の長さが階数。あとに建った棟ほど高く、戸数も多くなりました。</figcaption>
 </figure>`;
 }
 
@@ -192,6 +192,42 @@ function buildBonOdoriSvg(): string {
 </figure>`;
 }
 
+// 石川島の220年（縦の年表）。会社の歩みは茶、跡地の再開発は青、人足寄場は灰（rivercity の節2のあと）
+function buildIshikawajimaTimelineSvg(): string {
+  const rows: [string, string, string][] = [
+    ['1790', '人足寄場を開く（松平定信）', '#6b6259'],
+    ['1853', '石川島造船所（幕府が水戸藩に命じる）', '#8a4a2f'],
+    ['明治', '平野富二が引き継ぎ、民営に', '#8a4a2f'],
+    ['1945', '社名「石川島重工業」', '#8a4a2f'],
+    ['1960', '播磨造船所と合併「石川島播磨重工業」', '#8a4a2f'],
+    ['1979', '佃工場の操業が終わる', '#8a4a2f'],
+    ['1986', 'リバーシティ21 着工', '#3b6ea5'],
+    ['2007', '社名「株式会社IHI」', '#8a4a2f'],
+    ['2010', '最後の棟（オフィス棟）が竣工', '#3b6ea5'],
+  ];
+  const rowH = 30, top = 18;
+  const items = rows
+    .map(([y, label, c], i) => {
+      const cy = top + i * rowH;
+      return (
+        `<circle cx="52" cy="${cy}" r="6" fill="${c}"/>` +
+        `<text x="40" y="${cy + 4}" font-size="11.5" font-weight="700" fill="#262524" text-anchor="end">${y}</text>` +
+        `<text x="66" y="${cy + 4}" font-size="11.5" fill="${c === '#3b6ea5' ? '#2f5a88' : '#262524'}">${label}</text>`
+      );
+    })
+    .join('');
+  const h = top + (rows.length - 1) * rowH + 18;
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 ${h}" width="100%" role="img" aria-labelledby="ishi-title ishi-desc">
+    <title id="ishi-title">石川島の220年の年表</title>
+    <desc id="ishi-desc">1790年の人足寄場、1853年の石川島造船所、明治の民営化、1945年の石川島重工業、1960年の石川島播磨重工業、1979年の佃工場の操業終了、1986年のリバーシティ21着工、2007年の株式会社IHI、2010年の最後の棟の竣工を縦に並べた年表。</desc>
+    <line x1="52" y1="${top}" x2="52" y2="${top + (rows.length - 1) * rowH}" stroke="#c9c2b2" stroke-width="2"/>
+    ${items}
+  </svg>
+  <figcaption>茶は会社の歩み、青は跡地の再開発。工場が閉じてから着工まで7年、着工から最後の棟まで24年かかりました。</figcaption>
+</figure>`;
+}
+
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   tsukudani: { html: buildTsukudaniTimelineSvg() },
@@ -205,4 +241,13 @@ const figures: Record<string, Figure> = {
 
 export function figureHtml(slug: string): string | null {
   return figures[slug]?.html ?? null;
+}
+
+// 節のあとに置く図（節の番号は0から）。末尾の図（figureHtml）とは別に、本文の流れの中で見せたいもの
+const sectionFigures: Record<string, Record<number, string>> = {
+  rivercity: { 1: buildIshikawajimaTimelineSvg() },
+};
+
+export function sectionFigureHtml(slug: string, sectionIndex: number): string | null {
+  return sectionFigures[slug]?.[sectionIndex] ?? null;
 }

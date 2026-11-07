@@ -4,7 +4,7 @@ import { CATEGORY_LABEL } from '../data/types';
 import { href } from '../lib/router';
 import BoundaryMap from '../components/BoundaryMap';
 import { contrastRows } from '../data/contrast';
-import { figureHtml } from '../data/figures-data';
+import { figureHtml, sectionFigureHtml } from '../data/figures-data';
 
 // 本文中の [text](/articles/slug/) をリンクに変換する（他記事とつなぐための最小限のインライン記法）。
 function renderParagraph(text: string): ReactNode[] {
@@ -62,6 +62,7 @@ export default function ArticlePage({ id }: { id: string }) {
           {s.paragraphs.map((p, i2) => (
             <p key={i2}>{renderParagraph(p)}</p>
           ))}
+          {sectionFigureHtml(article.slug, i) && <div dangerouslySetInnerHTML={{ __html: sectionFigureHtml(article.slug, i)! }} />}
         </section>
       ))}
       {figureHtml(article.slug) && <div dangerouslySetInnerHTML={{ __html: figureHtml(article.slug)! }} />}
