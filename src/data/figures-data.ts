@@ -82,29 +82,6 @@ function buildSumiyoshiTimelineSvg(): string {
 </figure>`;
 }
 
-// 月島の埋立から、もんじゃ振興会の発展までの年表（4点）
-function buildTsukishimaTimelineSvg(): string {
-  const node = (x: number, year: string, label: string, color: string) =>
-    `<circle cx="${x}" cy="54" r="9" fill="${color}"/>` +
-    `<text x="${x}" y="34" font-size="11" font-weight="700" fill="#262524" text-anchor="middle">${year}</text>` +
-    `<text x="${x}" y="80" font-size="10.5" fill="#262524" text-anchor="middle">${label.split('|')[0]}</text>` +
-    (label.includes('|') ? `<text x="${x}" y="92" font-size="10.5" fill="#262524" text-anchor="middle">${label.split('|')[1]}</text>` : '');
-  return `<figure class="fig">
-  <svg viewBox="0 0 300 110" width="100%" role="img" aria-labelledby="tsukishima-title tsukishima-desc">
-    <title id="tsukishima-title">月島の埋立からもんじゃ振興会の発展までの年表の図</title>
-    <desc id="tsukishima-desc">月島一号地の完成から、戦後のもんじゃ焼き文化の広がり、振興会協同組合化までの年表。</desc>
-    <rect width="300" height="110" fill="#eef0ec"/>
-    <line x1="34" y1="54" x2="266" y2="54" stroke="#8a8578" stroke-width="2.2"/>
-    <path d="M266 54 l-8 -4 M266 54 l-8 4" stroke="#8a8578" stroke-width="2.2" fill="none"/>
-    ${node(40, '1892', '月島一号地|完成', '#3b6ea5')}
-    ${node(125, '1954', '好美家|創業', '#8a4a2f')}
-    ${node(200, '1997', 'もんじゃ振興会|発足（28店）', '#6b6259')}
-    ${node(260, '2019', '加盟|54店舗', '#262524')}
-  </svg>
-  <figcaption>月島一号地は明治25年（1892年）に完成し、大正9年（1920年）ごろには人口約3万人・工場214か所に成長しました。もんじゃ焼きは昭和20年代の駄菓子屋文化から育ち、平成9年（1997年）に28店でもんじゃ振興会が発足、令和元年（2019年）には加盟54店舗にまで広がっています。</figcaption>
-</figure>`;
-}
-
 // 佃川の3つの結末（大橋・渡し・堀）の対比図
 function buildOohashiContrastSvg(): string {
   return `<figure class="fig">
@@ -228,11 +205,65 @@ function buildIshikawajimaTimelineSvg(): string {
 </figure>`;
 }
 
+// 月島の埋め立ての広がり（縦の年表・tsukishima の節1のあと）
+function buildTsukishimaReclaimSvg(): string {
+  const rows: [string, string, string][] = [
+    ['1883', '東京湾澪浚（浚渫）が始まる', '#6b6259'],
+    ['1887', '浚渫の土砂を埋め立てに使い始める', '#6b6259'],
+    ['1892', '月島一号地（いまの月島1〜4丁目）', '#3b6ea5'],
+    ['1894', '二号地', '#3b6ea5'],
+    ['1896', '新佃島', '#3b6ea5'],
+    ['1913', '三号地', '#3b6ea5'],
+    ['1920', '人口 約3万人・工場 214か所', '#8a4a2f'],
+  ];
+  const rowH = 30, top = 18;
+  const items = rows.map(([y, label, c], i) => {
+    const cy = top + i * rowH;
+    return `<circle cx="52" cy="${cy}" r="6" fill="${c}"/>` +
+      `<text x="40" y="${cy + 4}" font-size="11.5" font-weight="700" fill="#262524" text-anchor="end">${y}</text>` +
+      `<text x="66" y="${cy + 4}" font-size="11.5" fill="#262524">${label}</text>`;
+  }).join('');
+  const h = top + (rows.length - 1) * rowH + 18;
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 ${h}" width="100%" role="img" aria-labelledby="tkr-title tkr-desc">
+    <title id="tkr-title">月島の埋め立ての広がりの年表</title>
+    <desc id="tkr-desc">1883年の浚渫開始、1887年に土砂を埋め立てへ転用、1892年の月島一号地、1894年の二号地、1896年の新佃島、1913年の三号地、1920年ごろ人口約3万人・工場214か所を縦に並べた年表。</desc>
+    <line x1="52" y1="${top}" x2="52" y2="${top + (rows.length - 1) * rowH}" stroke="#c9c2b2" stroke-width="2"/>
+    ${items}
+  </svg>
+  <figcaption>青が埋め立て地の完成。一号地の完成から30年足らずで、工場の町になりました。</figcaption>
+</figure>`;
+}
+
+// 月島のもんじゃ焼き店の数（棒・tsukishima の節3のあと）
+function buildMonjaCountSvg(): string {
+  const rows: [string, number, string][] = [
+    ['昭和30年代', 4, '4軒'],
+    ['1997年', 28, '28店（振興会の発足）'],
+    ['2019年', 54, '54店（組合の加盟店）'],
+  ];
+  const maxW = 150, rowH = 34, top = 12;
+  const items = rows.map(([y, n, label], i) => {
+    const yy = top + i * rowH;
+    const w = Math.max(4, (n / 54) * maxW);
+    return `<text x="0" y="${yy + 13}" font-size="11.5" font-weight="700" fill="#262524">${y}</text>` +
+      `<rect x="0" y="${yy + 18}" width="${w.toFixed(1)}" height="10" fill="#8a4a2f"/>` +
+      `<text x="${(w + 6).toFixed(1)}" y="${yy + 27}" font-size="11.5" fill="#262524">${label}</text>`;
+  }).join('');
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 ${top + rows.length * rowH + 4}" width="100%" role="img" aria-labelledby="monja-title monja-desc">
+    <title id="monja-title">月島のもんじゃ焼き店の数の移り変わり</title>
+    <desc id="monja-desc">昭和30年代は4軒、1997年は振興会の発足時に28店、2019年は協同組合の加盟店が54店であることを、店の数に比例した横棒で示す図。</desc>
+    <g transform="translate(15,0)">${items}</g>
+  </svg>
+  <figcaption>棒の長さが店の数。平成に入ってから急に増えました。</figcaption>
+</figure>`;
+}
+
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   tsukudani: { html: buildTsukudaniTimelineSvg() },
   sumiyoshi: { html: buildSumiyoshiTimelineSvg() },
-  tsukishima: { html: buildTsukishimaTimelineSvg() },
   oohashi: { html: buildOohashiContrastSvg() },
   seiritsu: { html: buildSeiritsuTimelineSvg() },
   chimei: { html: buildTownMergeSvg() },
@@ -246,6 +277,7 @@ export function figureHtml(slug: string): string | null {
 // 節のあとに置く図（節の番号は0から）。末尾の図（figureHtml）とは別に、本文の流れの中で見せたいもの
 const sectionFigures: Record<string, Record<number, string>> = {
   rivercity: { 1: buildIshikawajimaTimelineSvg() },
+  tsukishima: { 0: buildTsukishimaReclaimSvg(), 2: buildMonjaCountSvg() },
 };
 
 export function sectionFigureHtml(slug: string, sectionIndex: number): string | null {
