@@ -98,7 +98,7 @@ function buildOohashiContrastSvg(): string {
     <text x="20" y="146" font-size="12" font-weight="700" fill="#262524">佃堀（今も現存）</text>
     <text x="20" y="164" font-size="11" fill="#6b6259">西側の一部は水路として残り、住吉水門で高潮対策</text>
   </svg>
-  <figcaption>同じ「佃川」という1本の水路が、佃大橋への埋立、佃の渡しの廃止、佃堀としての現存という3つの異なる結末をたどりました。橋の完成と渡しの廃止は同じ昭和39年（1964年）に重なっています。</figcaption>
+  <figcaption>1本の水路の、3つの結末。</figcaption>
 </figure>`;
 }
 
@@ -165,7 +165,7 @@ function buildBonOdoriSvg(): string {
     <text x="150" y="190" font-size="11.5" fill="#262524" text-anchor="middle">輪になって行きつ戻りつ踊る</text>
     <text x="150" y="208" font-size="11.5" fill="#262524" text-anchor="middle">太鼓と七七調の口説のみ（三味線・笛なし）</text>
   </svg>
-  <figcaption>広場の中心に櫓を組み、その正面に無縁仏を供養する精霊棚を設けます。音頭取りの太鼓と唄だけで、参加者が周りを輪になって踊ります。</figcaption>
+  <figcaption>櫓の正面に精霊棚。鳴り物は太鼓だけです。</figcaption>
 </figure>`;
 }
 
@@ -320,7 +320,6 @@ const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   sumiyoshi: { html: buildSumiyoshiTimelineSvg() },
   oohashi: { html: buildOohashiContrastSvg() },
-  'bon-odori': { html: buildBonOdoriSvg() },
 };
 
 export function figureHtml(slug: string): string | null {
@@ -336,6 +335,7 @@ const sectionFigures: Record<string, Record<number, string>> = {
   oohashi: { 1: buildWatashiTimelineSvg() },
   chimei: { 2: buildTownMergeSvg() },
   seiritsu: { 1: buildSeiritsuTimelineSvg() },
+  'bon-odori': { 1: buildBonOdoriSvg() },
 };
 
 export function sectionFigureHtml(slug: string, sectionIndex: number): string | null {
