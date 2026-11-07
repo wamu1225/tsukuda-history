@@ -55,7 +55,7 @@ function buildTsukudaniTimelineSvg(): string {
     ${node(150, '1859', '丸久|創業（安政6年）', '#8a4a2f')}
     ${node(250, '1875〜', '田中屋|確認できる最古記録', '#6b6259')}
   </svg>
-  <figcaption>3軒とも佃1丁目の元佃に集まっていますが、創業年にはばらつきがあります。天安本店は天保8年（1837年）、丸久は安政6年（1859年）の創業とされます。田中屋は現存する最古の書籍が明治8年（1875年）のもので、公式サイトの記載にもとづきます。</figcaption>
+  <figcaption>灰色の田中屋だけは創業年ではなく、確かめられる最古の記録（明治8年の書籍）の年です。</figcaption>
 </figure>`;
 }
 
@@ -290,7 +290,6 @@ function buildSumiyoshiDeitiesSvg(): string {
 
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
-  tsukudani: { html: buildTsukudaniTimelineSvg() },
   sumiyoshi: { html: buildSumiyoshiTimelineSvg() },
   oohashi: { html: buildOohashiContrastSvg() },
   seiritsu: { html: buildSeiritsuTimelineSvg() },
@@ -307,6 +306,7 @@ const sectionFigures: Record<string, Record<number, string>> = {
   rivercity: { 1: buildIshikawajimaTimelineSvg() },
   tsukishima: { 0: buildTsukishimaReclaimSvg(), 2: buildMonjaCountSvg() },
   sumiyoshi: { 0: buildSumiyoshiDeitiesSvg() },
+  tsukudani: { 1: buildTsukudaniTimelineSvg() },
 };
 
 export function sectionFigureHtml(slug: string, sectionIndex: number): string | null {
