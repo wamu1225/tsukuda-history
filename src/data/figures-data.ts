@@ -288,6 +288,34 @@ function buildSumiyoshiDeitiesSvg(): string {
 </figure>`;
 }
 
+// 佃の渡しの移り変わり（縦の年表・oohashi の節2のあと）
+function buildWatashiTimelineSvg(): string {
+  const rows: [string, string, string][] = [
+    ['1645', '島の人たちが運営（不定期）', '#6b6259'],
+    ['1883', '大倉組の経営に。定期便が始まる', '#8a4a2f'],
+    ['1926', '東京市の渡船になる', '#8a4a2f'],
+    ['1927', '汽船が引く渡船に。運賃は無料', '#8a4a2f'],
+    ['1964', '佃大橋の開通で廃止', '#3b6ea5'],
+  ];
+  const rowH = 30, top = 18;
+  const items = rows.map(([y, label, c], i) => {
+    const cy = top + i * rowH;
+    return `<circle cx="52" cy="${cy}" r="6" fill="${c}"/>` +
+      `<text x="40" y="${cy + 4}" font-size="11.5" font-weight="700" fill="#262524" text-anchor="end">${y}</text>` +
+      `<text x="66" y="${cy + 4}" font-size="11.5" fill="#262524">${label}</text>`;
+  }).join('');
+  const h = top + (rows.length - 1) * rowH + 18;
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 ${h}" width="100%" role="img" aria-labelledby="watashi-title watashi-desc">
+    <title id="watashi-title">佃の渡しの移り変わりの年表</title>
+    <desc id="watashi-desc">1645年に島民が運営する不定期の渡しとして始まり、1883年に大倉組の経営で定期運航、1926年に東京市営、1927年から汽船による無料の曳船渡船、1964年に佃大橋の開通で廃止されたことを縦に並べた年表。</desc>
+    <line x1="52" y1="${top}" x2="52" y2="${top + (rows.length - 1) * rowH}" stroke="#c9c2b2" stroke-width="2"/>
+    ${items}
+  </svg>
+  <figcaption>およそ320年、隅田川で最後まで残った渡しでした。</figcaption>
+</figure>`;
+}
+
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   sumiyoshi: { html: buildSumiyoshiTimelineSvg() },
@@ -307,6 +335,7 @@ const sectionFigures: Record<string, Record<number, string>> = {
   tsukishima: { 0: buildTsukishimaReclaimSvg(), 2: buildMonjaCountSvg() },
   sumiyoshi: { 0: buildSumiyoshiDeitiesSvg() },
   tsukudani: { 1: buildTsukudaniTimelineSvg() },
+  oohashi: { 1: buildWatashiTimelineSvg() },
 };
 
 export function sectionFigureHtml(slug: string, sectionIndex: number): string | null {
