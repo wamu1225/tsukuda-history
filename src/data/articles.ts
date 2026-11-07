@@ -6,7 +6,7 @@ export const articles: Article[] = [
     title: '「佃」という地名：荘園の田の呼び名が、江戸の島の名になった',
     dek: '摂津国佃村から移り住んだ漁民が、故郷の名を新しい島に刻みました。',
     category: 'name-origin',
-    updatedAt: '2026-09-13',
+    updatedAt: '2026-11-07',
     sections: [
       {
         heading: '「佃」はもともと荘園の言葉',
@@ -56,7 +56,7 @@ export const articles: Article[] = [
     title: '佃島の成立：摂津の漁民が埋め立てた人工島',
     dek: '徳川家康との伝承と、正保年間の埋め立てで生まれた「元佃」の範囲。',
     category: 'history',
-    updatedAt: '2026-09-12',
+    updatedAt: '2026-11-07',
     sections: [
       {
         heading: '家康と佃村漁民の伝承',

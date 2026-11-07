@@ -119,7 +119,7 @@ function buildSeiritsuTimelineSvg(): string {
     ${node(70, '1612説', '森孫右衛門ら|34名が江戸入り', '#8a4a2f')}
     ${node(220, '1644', '干潟を埋め立て|島を築く（正保元年）', '#262524')}
   </svg>
-  <figcaption>佃村の漁民がいつ江戸へ移り住んだかは資料によって揺れ、慶長17年（1612年）に森孫右衛門ら34名が江戸に入ったとする資料もあります。島を築いたのは正保元年（1644年）です。</figcaption>
+  <figcaption>移り住んだ年は資料によって揺れますが（左）、島を築いた年は比較的そろっています（右）。</figcaption>
 </figure>`;
 }
 
@@ -143,7 +143,7 @@ function buildTownMergeSvg(): string {
     <text x="150" y="146" font-size="13" font-weight="700" fill="#262524" text-anchor="middle">佃1〜3丁目</text>
     <text x="150" y="166" font-size="11.5" fill="#262524" text-anchor="middle">昭和の住居表示で一つの町名へ</text>
   </svg>
-  <figcaption>元佃は最初の埋立地の古い町並みを指すのに対し、行政区画としての佃は江戸初期と明治期、二つの時代の埋立地を含んでいます。</figcaption>
+  <figcaption>いまの「佃」には、江戸初期と明治期、二つの時代の埋め立て地が入っています。</figcaption>
 </figure>`;
 }
 
@@ -320,8 +320,6 @@ const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   sumiyoshi: { html: buildSumiyoshiTimelineSvg() },
   oohashi: { html: buildOohashiContrastSvg() },
-  seiritsu: { html: buildSeiritsuTimelineSvg() },
-  chimei: { html: buildTownMergeSvg() },
   'bon-odori': { html: buildBonOdoriSvg() },
 };
 
@@ -336,6 +334,8 @@ const sectionFigures: Record<string, Record<number, string>> = {
   sumiyoshi: { 0: buildSumiyoshiDeitiesSvg() },
   tsukudani: { 1: buildTsukudaniTimelineSvg() },
   oohashi: { 1: buildWatashiTimelineSvg() },
+  chimei: { 2: buildTownMergeSvg() },
+  seiritsu: { 1: buildSeiritsuTimelineSvg() },
 };
 
 export function sectionFigureHtml(slug: string, sectionIndex: number): string | null {
