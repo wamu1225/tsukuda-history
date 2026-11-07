@@ -460,3 +460,9 @@
   font-size: 0.87rem;
   color: var(--muted);
 }
+
+/* 記事一覧の まとまり（2026-11-07） */
+.article-index__group { margin-top: 28px; }
+.article-index__group:first-of-type { margin-top: 8px; }
+.article-index__group h2 { font-size: 1.1rem; font-weight: 700; color: #3b2f1f; margin: 0 0 4px; padding-left: 10px; border-left: 4px solid #8a4a2f; }
+.article-index__lead { color: #6b6259; font-size: 0.9rem; margin: 0 0 10px; }

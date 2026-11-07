@@ -10,6 +10,7 @@ import { ABOUT_CONTENT, PRIVACY_CONTENT, SITE_NAME } from '../src/data/static-pa
 import { CATEGORY_LABEL, type Category } from '../src/data/types';
 import { renderBoundaryMapSvg } from '../src/lib/boundaryMapSvg';
 import { figureHtml, sectionFigureHtml } from '../src/data/figures-data';
+import { ARTICLE_GROUPS } from '../src/data/articleGroups';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
 const INDEX_HTML_PATH = path.join(DIST_DIR, 'index.html');
@@ -124,16 +125,17 @@ console.log('✓ トップページ');
 // ── 記事一覧 ──
 {
   const desc = '佃1丁目の地名の由来・成立史・住吉神社・老舗の佃煮・リバーシティ21再開発・境界線の実測をまとめた記事一覧です。';
-  const rows = articles
-    .map(
-      (a) =>
-        `<li>[${CATEGORY_LABEL[a.category]}] <a href="${BASE}/articles/${a.slug}/" style="color:#8a4a2f">${esc(a.title)}</a>：${esc(a.dek)}</li>`,
-    )
-    .join('\n');
+  const row = (a: (typeof articles)[number]) =>
+    `<li>[${CATEGORY_LABEL[a.category]}] <a href="${BASE}/articles/${a.slug}/" style="color:#8a4a2f">${esc(a.title)}</a>：${esc(a.dek)}</li>`;
+  const grouped = new Set(ARTICLE_GROUPS.flatMap((g) => g.slugs));
+  const rest = articles.filter((a) => !grouped.has(a.slug));
+  const rows = ARTICLE_GROUPS.map((g) =>
+    `<h2 style="font-size:1.05rem;margin-top:20px">${esc(g.title)}</h2><p style="color:#6b6259">${esc(g.lead)}</p><ul style="padding-left:18px">${g.slugs.map((s) => articles.find((a) => a.slug === s)).filter((a) => a !== undefined).map(row).join('\n')}</ul>`,
+  ).join('\n') + (rest.length ? `<h2 style="font-size:1.05rem;margin-top:20px">そのほか</h2><ul style="padding-left:18px">${rest.map(row).join('\n')}</ul>` : '');
   const body = `<article style="${shellStyle}">
     <h1 style="${h1Style}">記事一覧</h1>
     <p>${esc(desc)}</p>
-    <ul style="padding-left:18px">${rows}</ul>
+    ${rows}
     ${footerNav}
   </article>`;
   writePage(
