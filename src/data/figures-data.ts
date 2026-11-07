@@ -78,7 +78,7 @@ function buildSumiyoshiTimelineSvg(): string {
     ${node(200, '1882', '陶製扁額を|奉納', '#8a4a2f')}
     ${node(260, '1962', '海中渡御を|最後に台船へ', '#262524')}
   </svg>
-  <figcaption>住吉神社は正保3年（1646年）6月29日の創建以来、天保年間（1830〜1844年）作とされる八角形の宮神輿、明治15年（1882年）奉納の陶製扁額など、江戸・明治の信仰の記録を今に伝えています。昭和37年（1962年）までは担ぎ手が隅田川へ入る「海中渡御」でしたが、以降は台船による船渡御に変わりました。</figcaption>
+  <figcaption>江戸の創建から、明治の扁額、昭和の祭りの形の変化まで。</figcaption>
 </figure>`;
 }
 
@@ -260,6 +260,34 @@ function buildMonjaCountSvg(): string {
 </figure>`;
 }
 
+// 住吉神社に祀られた神々（どこから・何を・いつ）。sumiyoshi の節1のあと
+function buildSumiyoshiDeitiesSvg(): string {
+  const box = (y: number, h: number, fill: string, stroke: string) => `<rect x="20" y="${y}" width="260" height="${h}" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>`;
+  const t = (x: number, y: number, s: string, w = 400, c = '#262524', anchor = 'middle') => `<text x="${x}" y="${y}" font-size="11.5" font-weight="${w}" fill="${c}" text-anchor="${anchor}">${s}</text>`;
+  return `<figure class="fig">
+  <svg viewBox="0 0 300 236" width="100%" role="img" aria-labelledby="sumi-d-title sumi-d-desc">
+    <title id="sumi-d-title">住吉神社に祀られた神々の図</title>
+    <desc id="sumi-d-desc">摂津国佃村の田蓑神社（旧称・住吉神社）から住吉三神の分霊を移し、同時に神功皇后と徳川家康の霊（東照御親命）も祀って、正保3年（1646年）に佃の住吉神社が創建されたことを示す図。</desc>
+    ${box(8, 44, '#f7f1e0', '#8a4a2f')}
+    ${t(150, 27, '摂津国 佃村の田蓑神社', 700)}
+    ${t(150, 43, '（旧称・住吉神社）', 400, '#6b6259')}
+    <path d="M150 56 V76" stroke="#8a4a2f" stroke-width="2"/><path d="M150 80 l-6 -9 h12 z" fill="#8a4a2f"/>
+    ${t(160, 72, '分霊を移す', 400, '#8a4a2f', 'start')}
+    ${box(86, 142, '#ffffff', '#8a4a2f')}
+    ${t(150, 106, '佃の住吉神社（1646年 創建）', 700)}
+    <line x1="36" y1="116" x2="264" y2="116" stroke="#e4dfd0"/>
+    ${t(36, 136, '住吉三神', 700, '#262524', 'start')}
+    ${t(36, 152, '底筒之男命・中筒之男命・表筒之男命', 400, '#262524', 'start')}
+    ${t(36, 176, '神功皇后', 700, '#262524', 'start')}
+    ${t(36, 200, '徳川家康の霊', 700, '#262524', 'start')}
+    ${t(36, 216, '（東照御親命）', 400, '#6b6259', 'start')}
+    ${t(264, 176, 'いっしょに', 400, '#3b6ea5', 'end')}
+    ${t(264, 200, '祀った', 400, '#3b6ea5', 'end')}
+  </svg>
+  <figcaption>海の神である住吉三神に、神功皇后と家康の霊をあわせて、創建のときから祀っています。</figcaption>
+</figure>`;
+}
+
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   tsukudani: { html: buildTsukudaniTimelineSvg() },
@@ -278,6 +306,7 @@ export function figureHtml(slug: string): string | null {
 const sectionFigures: Record<string, Record<number, string>> = {
   rivercity: { 1: buildIshikawajimaTimelineSvg() },
   tsukishima: { 0: buildTsukishimaReclaimSvg(), 2: buildMonjaCountSvg() },
+  sumiyoshi: { 0: buildSumiyoshiDeitiesSvg() },
 };
 
 export function sectionFigureHtml(slug: string, sectionIndex: number): string | null {
