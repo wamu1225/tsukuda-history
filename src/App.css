@@ -491,3 +491,12 @@
 .points ol { margin: 0; padding-left: 1.3em; }
 .points li { margin: 4px 0; line-height: 1.65; font-size: 0.98rem; }
 .hook__catch { white-space: pre-line; }
+
+/* ── 主題を見分ける線画アイコン（2026-11-08） ── */
+.hook-number__icon { color: var(--accent); line-height: 0; }
+.hook-questions a { display: grid; grid-template-columns: 44px 1fr; column-gap: 12px; align-items: start; }
+.hook-q__icon { grid-row: 1 / span 3; width: 44px; height: 44px; border-radius: 50%; background: #fff; color: var(--accent); display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--accent); }
+.hook-q, .hook-a, .hook-more { grid-column: 2; }
+.article-group__list a { display: flex; align-items: center; gap: 8px; }
+.list-icon { flex: none; color: var(--accent); line-height: 0; }
+.article__icon { display: flex; width: 52px; height: 52px; border-radius: 50%; align-items: center; justify-content: center; color: #fff; background: var(--accent); margin: 8px 0 4px; }

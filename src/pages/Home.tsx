@@ -3,6 +3,7 @@ import { articles } from '../data/articles';
 import { ARTICLE_GROUPS } from '../data/articleGroups';
 import { HOOK } from '../data/hooks';
 import { heroSceneSvg } from '../data/figures-data';
+import { iconSvg, ARTICLE_ICON } from '../data/icons';
 
 // トップ：最初の1画面に、この町ならではの事実（つかみ）と町の絵。説明文から始めない（2026-11-08）
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <section className="hook-numbers" aria-label="数字で見る佃島">
         {HOOK.numbers.map((x) => (
           <a key={x.label} className="hook-number" href={href(`/articles/${x.slug}/`)}>
+            <span className="hook-number__icon" dangerouslySetInnerHTML={{ __html: iconSvg(x.icon, 22) }} />
             <span className="hook-number__n">{x.n}<small>{x.unit}</small></span>
             <span className="hook-number__label">{x.label}</span>
           </a>
@@ -31,6 +33,7 @@ export default function Home() {
           {HOOK.questions.map((x) => (
             <li key={x.q}>
               <a href={href(`/articles/${x.slug}/`)}>
+                <span className="hook-q__icon" dangerouslySetInnerHTML={{ __html: iconSvg(x.icon, 24) }} />
                 <span className="hook-q">{x.q}</span>
                 <span className="hook-a">{x.a}</span>
                 <span className="hook-more">{titleOf(x.slug)} →</span>
@@ -47,7 +50,7 @@ export default function Home() {
             <h3 className="article-group__title">{g.title}</h3>
             <ul className="article-group__list">
               {g.slugs.map((s) => (
-                <li key={s}><a href={href(`/articles/${s}/`)}>{titleOf(s)}</a></li>
+                <li key={s}><a href={href(`/articles/${s}/`)}><span className="list-icon" dangerouslySetInnerHTML={{ __html: iconSvg(ARTICLE_ICON[s], 20) }} />{titleOf(s)}</a></li>
               ))}
             </ul>
           </div>

@@ -6,15 +6,15 @@ export const HOOK = {
   catch: '東京のまん中に、\n大阪の漁師がつくった島',
   sub: '江戸からの路地と54階のタワーが、道1本をはさんで並ぶ町です。',
   numbers: [
-    { n: '1644', unit: '年', label: '漁民が干潟を埋め立てて島を築く', slug: 'seiritsu' },
-    { n: '約320', unit: '年', label: '隅田川の渡し船が続いた', slug: 'oohashi' },
-    { n: '180', unit: 'm', label: '佃煮の老舗から、いちばん近いタワーまで', slug: 'kyokai' },
+    { n: '1644', unit: '年', label: '漁民が干潟を埋め立てて島を築く', slug: 'seiritsu', icon: 'island' },
+    { n: '約320', unit: '年', label: '隅田川の渡し船が続いた', slug: 'oohashi', icon: 'boat' },
+    { n: '180', unit: 'm', label: '佃煮の老舗から、いちばん近いタワーまで', slug: 'kyokai', icon: 'steps' },
   ],
   questions: [
-    { q: 'なぜ「佃」という名前？', a: '大阪にあった村の名を、そのまま江戸の島につけました。', slug: 'chimei' },
-    { q: 'いちばん古い佃煮屋は？', a: '3軒の古さの順は、実は決められません。', slug: 'tsukudani' },
-    { q: '島はいつ陸続きになった？', a: '1964年。橋ができて、渡し船が終わった年です。', slug: 'oohashi' },
-    { q: 'タワーの場所には何があった？', a: '江戸の人足寄場、そして日本初の洋式造船所。', slug: 'rivercity' },
+    { q: 'なぜ「佃」という名前？', a: '大阪にあった村の名を、そのまま江戸の島につけました。', slug: 'chimei', icon: 'pin' },
+    { q: 'いちばん古い佃煮屋は？', a: '3軒の古さの順は、実は決められません。', slug: 'tsukudani', icon: 'bowl' },
+    { q: '島はいつ陸続きになった？', a: '1964年。橋ができて、渡し船が終わった年です。', slug: 'oohashi', icon: 'boat' },
+    { q: 'タワーの場所には何があった？', a: '江戸の人足寄場、そして日本初の洋式造船所。', slug: 'rivercity', icon: 'tower' },
   ],
 };
 

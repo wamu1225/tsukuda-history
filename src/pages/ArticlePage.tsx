@@ -6,6 +6,7 @@ import BoundaryMap from '../components/BoundaryMap';
 import { contrastRows } from '../data/contrast';
 import { figureHtml, sectionFigureHtml } from '../data/figures-data';
 import { ARTICLE_POINTS } from '../data/hooks';
+import { iconSvg, ARTICLE_ICON } from '../data/icons';
 
 // 本文中の [text](/articles/slug/) をリンクに変換する（他記事とつなぐための最小限のインライン記法）。
 function renderParagraph(text: string): ReactNode[] {
@@ -43,6 +44,7 @@ export default function ArticlePage({ id }: { id: string }) {
   return (
     <article className={`article article--${article.category}`}>
       <p className={`article__zone article__zone--${article.category}`}>{CATEGORY_LABEL[article.category]}</p>
+      {ARTICLE_ICON[article.slug] && <span className="article__icon" dangerouslySetInnerHTML={{ __html: iconSvg(ARTICLE_ICON[article.slug], 30) }} />}
       <h1 className="content-h1">{article.title}</h1>
       <p className="article__dek">{article.dek}</p>
       {ARTICLE_POINTS[article.slug] && (
