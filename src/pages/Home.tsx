@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <section className="hook">
-        <p className="hook__eyebrow">佃島の歴史と文化ガイド　東京都中央区 佃1丁目</p>
+        <p className="hook__eyebrow">佃島の歴史と文化ガイド{'　'}東京都中央区 佃1丁目</p>
         <h1 className="hook__catch">{HOOK.catch}</h1>
         <p className="hook__sub">{HOOK.sub}</p>
         <div className="hook__scene" dangerouslySetInnerHTML={{ __html: heroSceneSvg() }} />
