@@ -316,6 +316,30 @@ function buildWatashiTimelineSvg(): string {
 </figure>`;
 }
 
+// トップの絵：隅田川に浮かぶ佃島。手前に低い家並みと住吉神社の鳥居、赤い佃小橋、渡し船。奥にリバーシティ21のタワー（模式図）
+export function heroSceneSvg(): string {
+  const house = (x: number, w: number, h: number) =>
+    `<rect x="${x}" y="${150 - h}" width="${w}" height="${h}" fill="#e9dcc3" stroke="#8a4a2f" stroke-width="1.2"/>` +
+    `<path d="M${x - 3} ${150 - h} L${x + w / 2} ${150 - h - 12} L${x + w + 3} ${150 - h} Z" fill="#5d4a3a"/>`;
+  const tower = (x: number, w: number, h: number) => {
+    let win = '';
+    for (let y = 152 - h + 8; y < 140; y += 9) win += `<line x1="${x + 4}" y1="${y}" x2="${x + w - 4}" y2="${y}" stroke="#c8d6e6" stroke-width="1.4"/>`;
+    return `<rect x="${x}" y="${150 - h}" width="${w}" height="${h}" fill="#7d95b3"/>${win}`;
+  };
+  return `<svg viewBox="0 0 360 210" width="100%" role="img" aria-label="隅田川に浮かぶ佃島の模式的な絵。手前に低い家並みと鳥居と赤い小さな橋、奥に3本の超高層タワー、川には渡し船">
+  <rect width="360" height="210" fill="#e8eef0"/>
+  <circle cx="300" cy="44" r="18" fill="#f3d9a4"/>
+  ${tower(196, 30, 92)}${tower(236, 34, 120)}${tower(282, 30, 78)}
+  <rect x="0" y="150" width="360" height="8" fill="#b9a98c"/>
+  ${house(18, 34, 26)}${house(58, 28, 22)}${house(92, 36, 28)}${house(134, 26, 20)}
+  <g transform="translate(166,118)"><rect x="0" y="6" width="3" height="26" fill="#b5362b"/><rect x="18" y="6" width="3" height="26" fill="#b5362b"/><rect x="-4" y="0" width="29" height="4" fill="#b5362b"/><rect x="-1" y="9" width="23" height="3" fill="#b5362b"/></g>
+  <path d="M60 158 Q80 146 100 158" fill="none" stroke="#c0392b" stroke-width="4"/>
+  <rect x="0" y="158" width="360" height="52" fill="#6f9bb5"/>
+  <path d="M20 176 h40 M120 188 h60 M240 174 h50 M300 196 h40" stroke="#a9c7d6" stroke-width="2"/>
+  <g transform="translate(150,170)"><path d="M0 0 h56 l-8 12 h-40 z" fill="#5d4a3a"/><rect x="24" y="-14" width="2" height="14" fill="#5d4a3a"/><rect x="18" y="-6" width="16" height="6" fill="#e9dcc3"/></g>
+</svg>`;
+}
+
 const figures: Record<string, Figure> = {
   rivercity: { html: buildTowerChartSvg() },
   sumiyoshi: { html: buildSumiyoshiTimelineSvg() },

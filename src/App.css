@@ -466,3 +466,28 @@
 .article-index__group:first-of-type { margin-top: 8px; }
 .article-index__group h2 { font-size: 1.1rem; font-weight: 700; color: #3b2f1f; margin: 0 0 4px; padding-left: 10px; border-left: 4px solid #8a4a2f; }
 .article-index__lead { color: #6b6259; font-size: 0.9rem; margin: 0 0 10px; }
+
+/* ── トップのつかみ（2026-11-08）：最初の1画面に事実の一行・町の絵・数字 ── */
+.hook { padding: 28px 0 8px; }
+.hook__eyebrow { font-size: 0.78rem; color: var(--muted); margin: 0; letter-spacing: 0.04em; }
+.hook__catch { font-family: var(--serif); font-size: clamp(1.7rem, 7vw, 2.6rem); line-height: 1.35; margin: 10px 0 10px; color: var(--ink); }
+.hook__sub { font-size: 1rem; line-height: 1.8; color: var(--ink); margin: 0 0 16px; }
+.hook__scene { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #e8eef0; line-height: 0; }
+.hook-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 18px 0 8px; }
+.hook-number { display: flex; flex-direction: column; gap: 4px; padding: 12px 10px; background: #fff; border-top: 4px solid var(--accent); text-decoration: none; color: var(--ink); }
+.hook-number__n { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.hook-number__n small { font-size: 0.85rem; margin-left: 2px; color: var(--ink); }
+.hook-number__label { font-size: 0.8rem; line-height: 1.45; color: var(--ink); }
+.hook-questions ul { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.hook-questions a { display: block; padding: 14px 16px; background: var(--accent-paper); border-left: 4px solid var(--accent); text-decoration: none; color: var(--ink); }
+.hook-q { display: block; font-family: var(--serif); font-size: 1.15rem; font-weight: 700; }
+.hook-a { display: block; margin-top: 4px; font-size: 0.95rem; line-height: 1.6; }
+.hook-more { display: block; margin-top: 6px; font-size: 0.82rem; color: var(--accent); }
+.article-group__list li { margin: 4px 0; }
+
+/* ── 記事の冒頭の「ざっくり3行」 ── */
+.points { margin: 16px 0 8px; padding: 14px 16px 12px; background: #fff; border: 2px solid var(--accent); border-radius: 8px; }
+.points__label { margin: 0 0 6px; font-size: 0.82rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; }
+.points ol { margin: 0; padding-left: 1.3em; }
+.points li { margin: 4px 0; line-height: 1.65; font-size: 0.98rem; }
+.hook__catch { white-space: pre-line; }

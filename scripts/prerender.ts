@@ -7,10 +7,11 @@ import * as path from 'path';
 import { articles } from '../src/data/articles';
 import { contrastRows } from '../src/data/contrast';
 import { ABOUT_CONTENT, PRIVACY_CONTENT, SITE_NAME } from '../src/data/static-pages';
-import { CATEGORY_LABEL, type Category } from '../src/data/types';
+import { CATEGORY_LABEL } from '../src/data/types';
 import { renderBoundaryMapSvg } from '../src/lib/boundaryMapSvg';
-import { figureHtml, sectionFigureHtml } from '../src/data/figures-data';
+import { figureHtml, sectionFigureHtml, heroSceneSvg } from '../src/data/figures-data';
 import { ARTICLE_GROUPS } from '../src/data/articleGroups';
+import { HOOK, ARTICLE_POINTS } from '../src/data/hooks';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
 const INDEX_HTML_PATH = path.join(DIST_DIR, 'index.html');
@@ -86,26 +87,22 @@ function wrap(depth: number, title: string, desc: string, urlPath: string, bodyH
   return html;
 }
 
-const CATEGORY_ORDER: Category[] = ['name-origin', 'history', 'shrine', 'food', 'industry', 'culture', 'spots', 'faq'];
 
 // ── トップ（分野別の入口＝亀戸型） ──
 const homeDesc =
   '東京都中央区佃1丁目の歴史と文化を一次資料でまとめる。地名の由来、住吉神社、佃煮の老舗、リバーシティ21との境界線まで。';
-const groupedHtml = CATEGORY_ORDER.map((cat) => {
-  const list = articles.filter((a) => a.category === cat);
-  if (list.length === 0) return '';
-  const rows = list
-    .map(
-      (a) =>
-        `<li><a href="${BASE}/articles/${a.slug}/" style="color:#8a4a2f"><strong>${esc(a.title)}</strong></a><br/><span style="color:#6b6259;font-size:0.88rem">${esc(a.dek)}</span></li>`,
-    )
-    .join('\n');
-  return `<h2 style="font-size:1.15rem;margin:24px 0 8px;color:#3b2f1f">${esc(CATEGORY_LABEL[cat])}</h2>\n<ul style="padding-left:18px">${rows}</ul>`;
-}).join('\n');
+const groupedHtml = ARTICLE_GROUPS.map((g) =>
+  `<h3 style="font-size:1.02rem;margin:18px 0 6px;color:#3b2f1f">${esc(g.title)}</h3>\n<ul style="padding-left:18px">${g.slugs.map((sl) => articles.find((a) => a.slug === sl)).filter((a) => a !== undefined).map((a) => `<li><a href="${BASE}/articles/${a.slug}/" style="color:#8a4a2f">${esc(a.title)}</a></li>`).join('\n')}</ul>`,
+).join('\n');
 const homeBody = `<article style="${shellStyle}">
-  <p style="color:#6b6259;font-size:0.8rem">東京都中央区 佃1丁目</p>
-  <h1 style="${h1Style}">佃島の歴史と文化</h1>
-  <p>${esc(homeDesc)}</p>
+  <p style="color:#6b6259;font-size:0.8rem">佃島の歴史と文化ガイド　東京都中央区 佃1丁目</p>
+  <h1 style="${h1Style}">${esc(HOOK.catch).replace('\n', '<br/>')}</h1>
+  <p>${esc(HOOK.sub)}</p>
+  ${heroSceneSvg()}
+  <ul style="padding-left:18px">${HOOK.numbers.map((x) => `<li><a href="${BASE}/articles/${x.slug}/" style="color:#8a4a2f"><strong>${esc(x.n + x.unit)}</strong></a>：${esc(x.label)}</li>`).join('')}</ul>
+  <h2 style="font-size:1.15rem;margin:24px 0 8px">気になる問いから読む</h2>
+  <ul style="padding-left:18px">${HOOK.questions.map((x) => `<li><a href="${BASE}/articles/${x.slug}/" style="color:#8a4a2f"><strong>${esc(x.q)}</strong></a> ${esc(x.a)}</li>`).join('')}</ul>
+  <h2 style="font-size:1.15rem;margin:24px 0 8px">記事をぜんぶ見る</h2>
   ${groupedHtml}
   ${footerNav}
 </article>`;
@@ -183,6 +180,7 @@ for (const a of articles) {
     <p style="display:inline-block;font-size:0.74rem;padding:3px 10px;border-radius:12px;color:#fff;background:#8a4a2f">${esc(CATEGORY_LABEL[a.category])}</p>
     <h1 style="${h1Style}">${esc(a.title)}</h1>
     <p style="color:#6b6259">${esc(a.dek)}</p>
+    ${ARTICLE_POINTS[a.slug] ? `<div style="margin:12px 0;padding:12px 14px;background:#fff;border:2px solid #8a4a2f;border-radius:8px"><p style="margin:0 0 4px;font-weight:700;color:#8a4a2f;font-size:0.85rem">ざっくり3行</p><ol style="margin:0;padding-left:1.3em">${ARTICLE_POINTS[a.slug].map((p) => `<li>${esc(p)}</li>`).join('')}</ol></div>` : ''}
     ${tocHtml}
     ${sectionsHtml}
     ${figHtml}
