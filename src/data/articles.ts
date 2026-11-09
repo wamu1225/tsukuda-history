@@ -358,7 +358,7 @@ export const articles: Article[] = [
   {
     slug: 'faq',
     title: '佃島と月島、もんじゃ焼きはどっちが本当？',
-    dek: '隣り合う二つの町の違いと、名物のルーツを整理します。',
+    dek: '佃島と月島は別の島。もんじゃ焼きで知られるのは、明治に造られた月島のほうです。',
     category: 'faq',
     updatedAt: '2026-09-13',
     sections: [
